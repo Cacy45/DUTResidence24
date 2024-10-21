@@ -280,7 +280,10 @@
         <li><a href="#">Messages</a></li>
         <li><a href="#">Documents</a></li>
       </ul>
-      <button class="logout-btn">Logout</button>
+      <form method="POST" action="{% url 'student:logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Logout</button>
+      </form>
     </div>
 
     <!-- Dashboard Container -->
