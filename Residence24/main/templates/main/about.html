@@ -1,0 +1,30 @@
+{% extends 'main/layout.html' %}  <!-- This must be the very first line -->
+
+{% load static %}  <!-- Load the static files tag library -->
+
+{% block title%}
+About
+{% endblock%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block div %}
+<section class="about">
+    <h1>About the Student Housing and Residence Life Unit</h1>
+    <p>The Student Housing and Residence Life Unit is dynamic in its approach, to respond to the needs of students and ensures a smooth and enabling Living and Learning environment. The three segments of the Unit, namely; Residence – Life, Finance and Administration, works collaboratively to achieve this. The Unit contributes greatly on the early experiences, integration, and adaption of students to our campuses. We thus significantly pay much focus on the student cycle. The living and learning initiatives exist to enhance the academic and social success of residence students.</p>
+
+    <p>Student Housing and Residence Life strives to create a living and learning environment as the foundation of its residence culture. Whilst the culture of living and learning is dynamic in its nature. Every effort is made to ensure that students’ residence life experience will foster their holistic development as well as being fully supportive of their academic programme. The holistic student development initiative within the unit is embedded mainly as student learning centres, social and sporting activities, life-skills and peer-tutoring programme (Residence Educational programme).</p>
+
+    <h2>Our Goals</h2>
+    <ul>
+        <li>To pivot a smooth transition for the living and learning communities to provide blended support to residence students.</li>
+        <li>Provide academic and psycho-social support through peer-to-peer initiatives to position students as co-creators and collaborators in their own residence and campus experience.</li>
+        <li>To contribute to the retention, development and success of students through the co-curricular activities and active engagement.</li>
+    </ul>
+
+    <p>We are intentionally creating spaces for students to engage in critical dialogues and debates to advance themselves and their communities in ways that are embedded on strong values and principles.</p>
+</section>
+
+    {% endblock %}

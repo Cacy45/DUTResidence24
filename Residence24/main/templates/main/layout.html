@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title%}
+        Residence24 - Home
+        {% endblock%}
+    </title>
+
+    <link rel="stylesheet" href="{% static 'main/layout.css' %}">
+    {% block extra_css %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Residence24</div>
+            <ul class="nav-links">
+                <li class="nav-item">
+                    <a href="{% url 'main:home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'main:about' %}">About</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{% url 'main:contact' %}">Contact</a>
+                   
+                </li>
+                <li class="nav-item">
+                    <a href="#">Login</a>
+                    <ul class="dropdown">
+                        <li><a href="{% url 'usermanagement:admin_login' %}">Admin</a>  <!-- Generates the link to the login page -->
+                        </li>
+                        <li><a href="{% url 'usermanagement:student_login' %}">Student</a></li>
+                </li>
+
+            </ul>
+        </nav>
+    </header>
+
+    
+    <div>
+        {% block div%}
+    <section class="hero">
+        <img src="https://creativeaxis.co.za/wp-content/uploads/2021/08/2-1-16-1.jpg">
+        <h1 class="welcome-text">Welcome to Residence24</h1>
+        <p>Your gateway to comfortable and secure student housing at DUT.</p>
+        
+    </section>
+
+    <h2>Don't wait till it's to late</h2>
+
+    <!--Apply Now button-->
+    <button class="apply-button" onclick="window.location.href='{% url 'usermanagement:student_login' %}'">Apply Now!</button>
+
+    {% endblock %}
+</div>
+
+
+
+     
+   
+         <footer class="footer">
+        <p>&copy; 2024 Residence24 | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

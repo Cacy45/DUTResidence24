@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Residences</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Sidebar Styles */
+        nav.sidebar {
+            background-color: #003c8f; /* Dark blue */
+            color: white;
+            width: 250px; /* Default width */
+            height: 100vh; /* Full height */
+            position: fixed;
+            transition: width 0.3s;
+            overflow: hidden; /* Hide overflow */
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px; /* Padding at the top */
+        }
+
+        .sidebar h2 {
+            font-weight: 600;
+            margin: 1rem 0 1rem 1rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 1rem 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #0052cc;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px; /* Default margin */
+            padding: 1rem;
+            flex: 1;
+            transition: margin-left 0.3s;
+            overflow-y: auto; /* Enable vertical scroll */
+        }
+
+        h1 {
+            margin: 2rem 0;
+            color: #003c8f;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #b3cde0;
+        }
+
+        th {
+            background-color: #003c8f;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .button-container button {
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border: none;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .button-container .add-btn {
+            background-color: #4caf50; /* Green */
+        }
+
+        .button-container .add-btn:hover {
+            background-color: #45a049; /* Darker green */
+        }
+
+        .button-container .edit-btn {
+            background-color: #2196F3; /* Blue */
+        }
+
+        .button-container .edit-btn:hover {
+            background-color: #1976D2; /* Darker blue */
+        }
+
+        .button-container .delete-btn {
+            background-color: #f44336; /* Red */
+        }
+
+        .button-container .delete-btn:hover {
+            background-color: #d32f2f; /* Darker red */
+        }
+
+        /* Form Styles */
+        form {
+            margin: 2rem 0;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form h2 {
+            margin-bottom: 1rem;
+            color: #003c8f;
+        }
+
+        form label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            color: #003c8f;
+        }
+
+        form input,
+        form select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #b3cde0;
+            border-radius: 0.3rem;
+            margin-bottom: 1rem;
+        }
+
+        form input:focus,
+        form select:focus {
+            border-color: #003c8f;
+            outline: none;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #003c8f;
+            color: #fff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <h2>Navigation</h2>
+        <ul>
+            <li><a href="{% url 'housing:manage_residences' %}">Manage Residences</a></li>
+            <li><a href="{% url 'housing:manage_applications' %}">Manage Applications</a></li>
+            <!-- Add other navigation links as needed -->
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <h1>Manage Residences</h1>
+
+        <!-- Add/Edit Residence Form -->
+        <form method="POST" action="{% url 'housing:manage_residences' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="residence_id" id="residence_id" value="">
+            <div class="button-container">
+                <button type="submit" class="add-btn">Add Residence</button>
+            </div>
+        </form>
+        
+        <h2>Existing Residences</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Residence Name</th>
+                    <th>Address</th>
+                    <th>Total Rooms</th>
+                    <th>Distance to Campus</th>
+                    <th>Faculty</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for residence in residences %}
+                <tr>
+                    <td>{{ residence.residence_name }}</td>
+                    <td>{{ residence.residence_address }}</td>
+                    <td>{{ residence.total_num_of_rooms }}</td>
+                    <td>{{ residence.distance_to_campus }}</td>
+                    <td>{{ residence.faculty.faculty }}</td>
+                    <td>
+                        <button type="button" class="edit-btn" onclick="populateEditForm('{{ residence.id }}', '{{ residence.residence_name }}', '{{ residence.residence_address }}', '{{ residence.total_num_of_rooms }}', '{{ residence.distance_to_campus }}', '{{ residence.faculty.id }}')">Edit</button>
+                        <form method="POST" action="{% url 'housing:manage_residences' %}" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="residence_id" value="{{ residence.id }}">
+                            <button type="submit" name="delete_residence" class="delete-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        &copy; 2024 Residence Management System
+    </footer>
+
+    <script>
+        function populateEditForm(id, name, address, totalRooms, distance, facultyId) {
+            document.getElementById('residence_id').value = id;
+            document.querySelector('input[name="residence_name"]').value = name;
+            document.querySelector('input[name="residence_address"]').value = address;
+            document.querySelector('input[name="total_num_of_rooms"]').value = totalRooms;
+            document.querySelector('input[name="distance_to_campus"]').value = distance;
+            document.querySelector('select[name="faculty"]').value = facultyId;
+        }
+    </script>
+</body>
+</html>

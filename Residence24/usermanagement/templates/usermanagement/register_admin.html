@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #e3f2fd; /* Light blue background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .register-container h1 {
+            font-family: 'Cardo', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .register-container input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .register-container button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #b71c1c; /* Dark red for admin */
+            color: #fff;
+            border: none;
+            border-radius: 0.3rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .register-container button:hover {
+            background-color: #d32f2f; /* Hover effect */
+        }
+
+        .register-container .login-link {
+            margin-top: 1rem;
+            display: block;
+            color: #b71c1c;
+            text-decoration: none;
+        }
+
+        .register-container .login-link:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background-color: #f8d7da; /* Light red background for errors */
+            color: #721c24; /* Dark red text */
+            border: 1px solid #f5c6cb; /* Red border */
+            border-radius: 0.3rem;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h1>Admin Registration</h1>
+
+        {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                    <p>{{ message }}</p> <!-- Display any success or error messages -->
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form.email.label_tag }} {{ form.email }} <!-- Corrected the email field -->
+            {% if form.email.errors %}
+                <div class="error-message">
+                    {{ form.email.errors }}
+                </div>
+            {% endif %}
+            
+            {{ form.first_name.label_tag }} {{ form.first_name }} <!-- First name input -->
+            {% if form.first_name.errors %}
+                <div class="error-message">
+                    {{ form.first_name.errors }}
+                </div>
+            {% endif %}
+            
+            {{ form.last_name.label_tag }} {{ form.last_name }} <!-- Last name input -->
+            {% if form.last_name.errors %}
+                <div class="error-message">
+                    {{ form.last_name.errors }}
+                </div>
+            {% endif %}
+            
+            {{ form.cell_number.label_tag }} {{ form.cell_number }} <!-- Cell number input -->
+            {% if form.cell_number.errors %}
+                <div class="error-message">
+                    {{ form.cell_number.errors }}
+                </div>
+            {% endif %}
+            
+            {{ form.password1.label_tag }} {{ form.password1 }}<br> <!-- Password input -->
+            {% if form.password1.errors %}
+                <div class="error-message">
+                    {{ form.password1.errors }}
+                </div>
+            {% endif %}
+            
+            {{ form.password2.label_tag }} {{ form.password2 }}<br> <!-- Confirmation password input -->
+            {% if form.password2.errors %}
+                <div class="error-message">
+                    {{ form.password2.errors }}
+                </div>
+            {% endif %}
+            
+            <button type="submit">Register</button>
+            
+            <p>Already have an account?</p>
+            <a href="{% url 'usermanagement:admin_login' %}" class="login-link">Login</a>
+        </form>
+        
+    </div>
+
+</body>
+</html>

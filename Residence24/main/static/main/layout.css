@@ -1,0 +1,191 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #e3f2fd; /* Lighter blue background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #003c8f; /* Metallic blue */
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar .nav-item {
+    position: relative;
+    margin-left: 1rem;
+}
+
+.navbar .nav-item a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+}
+
+.navbar .nav-item .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #003c8f;
+    list-style: none;
+    padding: 0;
+}
+
+.navbar .nav-item:hover .dropdown {
+    display: block;
+}
+
+.navbar .nav-item .dropdown li a {
+    padding: 0.5rem 1rem;
+}
+
+.navbar .nav-item .dropdown li a:hover {
+    background-color: #0052cc;
+}
+
+.hero {
+    text-align: center;
+    padding: 2rem;
+    background-color: #003c8f; /* Metallic blue */
+    color: #fff;
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.welcome-text {
+    font-size: 2rem;
+    margin: 1rem 0;
+    color: #82b1ff; /* Different shade of blue */
+}
+
+.btn {
+    display: inline-block;
+    background-color: #82b1ff; /* Button color */
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background-color: #1e88e5; /* Hover effect */
+}
+
+.about, .services, .login {
+    padding: 2rem;
+    text-align: center;
+}
+
+.about p {
+    font-family: 'Cardo', serif; /* Cardo font for About section */
+}
+
+.services {
+    background-color: #fff;
+}
+
+.service-box {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: #f5f5f5; /* Grey background */
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.service-box:hover {
+    background-color: #e3f2fd; /* Light blue on hover */
+}
+
+.service-hover-content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+}
+
+.service-box:hover .service-hover-content {
+    display: block;
+}
+
+.login {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.login input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #003c8f; /* Metallic blue */
+    color: #fff;
+}
+
+/* button */
+.apply-button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem; /* Padding for the button */
+    background-color: #003c8f; /* Primary color */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 25px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    font-weight: 600; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.apply-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+h2 {
+    text-align: center; /* Center text */
+    margin: 20px 0; /* Add margin for spacing */
+}

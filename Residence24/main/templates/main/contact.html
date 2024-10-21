@@ -1,0 +1,38 @@
+{% extends 'main/layout.html' %}  <!-- This must be the very first line -->
+
+{% load static %}  <!-- Load the static files tag library -->
+
+{% block title%}
+Contact Information
+{% endblock%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block div %}
+<section class="contact-info">
+    <h1>Contact Information</h1>
+
+    <div class="manager">
+        <h2>Manager (Durban)</h2>
+        <p><strong>Name:</strong> Mr Reginald P. Mnyango</p>
+        <p><strong>Tel:</strong> 031 373 2212</p>
+    </div>
+
+    <div class="manager">
+        <h2>Manager (Midlands)</h2>
+        <p><strong>Name:</strong> Mrs Celiwe F Chemane-Nyathi</p>
+        <p><strong>Tel:</strong> 031 373 6059</p>
+    </div>
+
+    <h2>General Queries for Durban Residences</h2>
+    <p>All queries for Durban residences should be directed to Student Housing Reception on the telephone number below or e-mail: <a href="mailto:housingdbn@dut.ac.za">housingdbn@dut.ac.za</a>.</p>
+    <p><strong>First Year Students:</strong> <a href="mailto:firstyearqueriesdbn@dut.ac.za">firstyearqueriesdbn@dut.ac.za</a> | Tel: 031 373 2185 / 6337 / 2217</p>
+
+    <h2>General Queries for Midlands Residences</h2>
+    <p>All queries for Midlands residences should be directed to Student Housing Reception on the telephone number below or e-mail: <a href="mailto:HousingPmb@dut.ac.za">HousingPmb@dut.ac.za</a>.</p>
+    <p><strong>First Year Students:</strong> <a href="mailto:firstyearhousingpmb@dut.ac.za">firstyearhousingpmb@dut.ac.za</a> | Tel: 031 373 6059 / 5453</p>
+</section>
+
+    {% endblock %}

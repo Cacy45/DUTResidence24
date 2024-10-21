@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residence24 - Residence Application</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #e3f2fd; /* Lighter blue background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 20%;
+            background-color: #003c8f; /* Metallic blue */
+            padding: 1rem;
+            color: white;
+            position: relative;
+            z-index: 1000;
+            height: 100vh; /* Full height sidebar */
+        }
+
+        .sidebar h3 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 1rem 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #0052cc;
+        }
+
+        /* Form Container */
+        .form-container {
+            width: 80%;
+            margin: 2rem auto;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            position: relative;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #b3cde0;
+            border-radius: 0.5rem;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #003c8f; /* Focus color */
+        }
+
+        .submit-btn {
+            background-color: #1e88e5;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2196f3; /* Hover color */
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #003c8f;
+            color: #fff;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>Student Dashboard</h3>
+        <ul>
+            <li><a href="#">Account Profile</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Documents</a></li>
+            <li><a href="{% url 'student:residence_application' %}">Residence Application</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Form Container -->
+    <div class="form-container">
+        <h2>Residence Application</h2>
+        <form method="POST" action="{% url 'student:residence_application' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" value="{{ user.student.first_name }}" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" value="{{ user.student.last_name }}" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="student_ID">Student ID</label>
+                <input type="text" id="student_ID" name="student_ID" value="{{ user.student_id }}" readonly>
+            </div>      
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select...</option>
+                    <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+                    <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+                    <option value="Other" {% if student.gender == "Other" %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="home_address_street">Home Address (Street)</label>
+                <input type="text" id="home_address_street" name="home_address_street" value="{{ student.home_address_street }}" required>
+            </div>
+            <div class="form-group">
+                <label for="home_address_suburb">Home Address (Suburb)</label>
+                <input type="text" id="home_address_suburb" name="home_address_suburb" value="{{ student.home_address_suburb }}" required>
+            </div>
+            <div class="form-group">
+                <label for="home_address_city">Home Address (City)</label>
+                <input type="text" id="home_address_city" name="home_address_city" value="{{ student.home_address_city }}" required>
+            </div>
+            <div class="form-group">
+                <label for="home_address_postal_code">Home Address (Postal Code)</label>
+                <input type="text" id="home_address_postal_code" name="home_address_postal_code" value="{{ student.home_address_postal_code }}" required>
+            </div>
+            <div class="form-group">
+                <label for="level_of_study">Level of Study</label>
+                <select id="level_of_study" name="level_of_study" required>
+                    <option value="">Select...</option>
+                    <option value="1st year" {% if student.level_of_study == "1st year" %}selected{% endif %}>1st year</option>
+                    <option value="2nd year" {% if student.level_of_study == "2nd year" %}selected{% endif %}>2nd year</option>
+                    <option value="3rd year" {% if student.level_of_study == "3rd year" %}selected{% endif %}>3rd year</option>
+                    <option value="4th year" {% if student.level_of_study == "4th year" %}selected{% endif %}>4th year</option>
+                    <option value="Postgraduate" {% if student.level_of_study == "Postgraduate" %}selected{% endif %}>Postgraduate</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_faculty">Faculty</label>
+                {{ form.faculty }} 
+            </div>
+            <div class="form-group">
+                <label for="preferred_room_type">Preferred Room Type</label>
+                <select id="preferred_room_type" name="preferred_room_type" required>
+                    <option value="">Select...</option>
+                    <option value="1-sleeper">1-sleeper</option>
+                    <option value="2-sleeper">2-sleeper</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Residence24 © 2024 - All Rights Reserved
+    </div>
+</body>
+
+</html>

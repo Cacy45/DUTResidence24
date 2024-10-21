@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Room to {{ residence.residence_name }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        nav.sidebar {
+            background-color: #003c8f; /* Dark blue */
+            color: white;
+            width: 250px; /* Default width */
+            height: 100vh; /* Full height */
+            position: fixed;
+            transition: width 0.3s;
+            overflow: hidden; /* Hide overflow */
+        }
+        
+        .sidebar.collapsed {
+            width: 60px; /* Width when collapsed */
+        }
+        
+        .sidebar h2 {
+            font-weight: 600;
+            margin: 1rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar ul li {
+            margin: 1rem 0;
+        }
+        
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: #0052cc;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px; /* Default margin */
+            padding: 1rem;
+            flex: 1;
+            transition: margin-left 0.3s;
+        }
+        
+        .main-content.collapsed {
+            margin-left: 60px; /* Margin when sidebar is collapsed */
+        }
+        
+        h1 {
+            margin: 2rem 0;
+            color: #003c8f;
+        }
+        
+        /* Table Styles */
+        table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #b3cde0;
+        }
+        
+        th {
+            background-color: #003c8f;
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .add-btn,
+        .edit-btn,
+        .delete-btn {
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border: none;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .add-btn {
+            background-color: #4caf50; /* Green */
+        }
+        
+        .add-btn:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        
+        .edit-btn {
+            background-color: #ffa500; /* Orange */
+        }
+        
+        .edit-btn:hover {
+            background-color: #ff8c00; /* Darker orange */
+        }
+        
+        .delete-btn {
+            background-color: #e53935; /* Red */
+        }
+        
+        .delete-btn:hover {
+            background-color: #d32f2f; /* Darker red */
+        }
+        
+        /* Form Styles */
+        form {
+            margin: 2rem 0;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        form label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            color: #003c8f;
+        }
+        
+        form input,
+        form select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #b3cde0;
+            border-radius: 0.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        form input:focus,
+        form select:focus {
+            border-color: #003c8f;
+            outline: none;
+        }
+        
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #003c8f;
+            color: #fff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+        
+        /* Toggle Button */
+        .toggle-btn {
+            background-color: #003c8f;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin: 1rem;
+            border-radius: 0.3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Responsive Sidebar */
+        @media (max-width: 768px) {
+            nav.sidebar {
+                width: 60px;
+            }
+        
+            .main-content {
+                margin-left: 60px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>Add Room to {{ residence.residence_name }}</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}a<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Add Room to {{ residence.residence_name }}</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', sans-serif;
+                    background-color: #e3f2fd;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100vh;
+                }
+        
+                /* Sidebar Styles */
+                nav.sidebar {
+                    background-color: #003c8f; /* Dark blue */
+                    color: white;
+                    width: 250px; /* Default width */
+                    height: 100vh; /* Full height */
+                    position: fixed;
+                    transition: width 0.3s;
+                    overflow: hidden; /* Hide overflow */
+                }
+        
+                .sidebar h2 {
+                    font-weight: 600;
+                    margin: 1rem;
+                }
+        
+                .sidebar ul {
+                    list-style: none;
+                    padding: 0;
+                }
+        
+                .sidebar ul li {
+                    margin: 1rem 0;
+                }
+        
+                .sidebar ul li a {
+                    color: white;
+                    text-decoration: none;
+                    display: block;
+                    padding: 0.5rem 1rem;
+                    transition: background-color 0.3s;
+                }
+        
+                .sidebar ul li a:hover {
+                    background-color: #0052cc;
+                }
+        
+                /* Main Content Styles */
+                .main-content {
+                    margin-left: 250px; /* Default margin */
+                    padding: 1rem;
+                    flex: 1;
+                    transition: margin-left 0.3s;
+                }
+        
+                h1 {
+                    margin: 2rem 0;
+                    color: #003c8f;
+                }
+        
+                /* Form Styles */
+                form {
+                    margin: 2rem 0;
+                    background-color: white;
+                    padding: 1rem;
+                    border-radius: 0.5rem;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+        
+                form label {
+                    display: block;
+                    margin: 0.5rem 0 0.2rem;
+                    color: #003c8f;
+                }
+        
+                form input,
+                form select {
+                    width: 100%;
+                    padding: 0.5rem;
+                    border: 1px solid #b3cde0;
+                    border-radius: 0.3rem;
+                    margin-bottom: 1rem;
+                }
+        
+                form input:focus,
+                form select:focus {
+                    border-color: #003c8f;
+                    outline: none;
+                }
+        
+                button[type="submit"] {
+                    background-color: #4caf50; /* Green */
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    border: none;
+                    border-radius: 0.3rem;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+        
+                button[type="submit"]:hover {
+                    background-color: #45a049; /* Darker green */
+                }
+        
+                /* Footer Styles */
+                footer {
+                    text-align: center;
+                    padding: 1rem;
+                    background-color: #003c8f;
+                    color: #fff;
+                    width: 100%;
+                    position: fixed;
+                    bottom: 0;
+                }
+            </style>
+        </head>
+        <body>
+            <nav class="sidebar">
+                <h2>Navigation</h2>
+                <ul>
+                    <li><a href="{% url 'housing:manage_residences' %}">Manage Residences</a></li>
+                    <li><a href="{% url 'housing:add_room' residence.residence_ID %}">Add Room</a></li>
+                    <!-- Add more navigation links as needed -->
+                </ul>
+            </nav>
+        
+            <div class="main-content">
+                <h1>Add Room to {{ residence.residence_name }}</h1>
+        
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Add Room</button>
+                </form>
+        
+                <a href="{% url 'housing:manage_residences' %}">Back to Manage Residences</a>
+            </div>
+        
+            <footer>
+                &copy; {{ current_year }} Your Company Name
+            </footer>
+        
+            <script>
+                // Optional: You can add JavaScript for additional functionality if needed
+            </script>
+        </body>
+        </html>
+        
+        <button type="submit">Add Room</button>
+    </form>
+
+    <a href="{% url 'housing:manage_residences' %}">Back to Manage Residences</a>
+</body>
+</html>
