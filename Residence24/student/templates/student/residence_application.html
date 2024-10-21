@@ -123,10 +123,9 @@
     <div class="sidebar">
         <h3>Student Dashboard</h3>
         <ul>
-            <li><a href="#">Account Profile</a></li>
+            <li><a href="{% url 'student:residence_application' %}">Residence Application</a></li>
             <li><a href="#">Messages</a></li>
             <li><a href="#">Documents</a></li>
-            <li><a href="{% url 'student:residence_application' %}">Residence Application</a></li>
             <li><a href="#">Logout</a></li>
         </ul>
     </div>
@@ -135,71 +134,12 @@
     <div class="form-container">
         <h2>Residence Application</h2>
         <form method="POST" action="{% url 'student:residence_application' %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" value="{{ student.first_name }}" required>
-            </div>
-            <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name" value="{{ student.last_name }}" required>
-            </div>
-            <div class="form-group">
-                <label for="student_ID">Student ID</label>
-                <input type="text" id="student_ID" name="student_ID" value="{{ student.student_ID }}" readonly>
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <select id="gender" name="gender" required>
-                    <option value="">Select...</option>
-                    <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
-                    <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
-                    <option value="Other" {% if student.gender == "Other" %}selected{% endif %}>Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="home_address_street">Home Address (Street)</label>
-                <input type="text" id="home_address_street" name="home_address_street" value="{{ student.home_address_street }}" required>
-            </div>
-            <div class="form-group">
-                <label for="home_address_suburb">Home Address (Suburb)</label>
-                <input type="text" id="home_address_suburb" name="home_address_suburb" value="{{ student.home_address_suburb }}" required>
-            </div>
-            <div class="form-group">
-                <label for="home_address_city">Home Address (City)</label>
-                <input type="text" id="home_address_city" name="home_address_city" value="{{ student.home_address_city }}" required>
-            </div>
-            <div class="form-group">
-                <label for="home_address_postal_code">Home Address (Postal Code)</label>
-                <input type="text" id="home_address_postal_code" name="home_address_postal_code" value="{{ student.home_address_postal_code }}" required>
-            </div>
-            <div class="form-group">
-                <label for="level_of_study">Level of Study</label>
-                <select id="level_of_study" name="level_of_study" required>
-                    <option value="">Select...</option>
-                    <option value="1st year" {% if student.level_of_study == "1st year" %}selected{% endif %}>1st year</option>
-                    <option value="2nd year" {% if student.level_of_study == "2nd year" %}selected{% endif %}>2nd year</option>
-                    <option value="3rd year" {% if student.level_of_study == "3rd year" %}selected{% endif %}>3rd year</option>
-                    <option value="4th year" {% if student.level_of_study == "4th year" %}selected{% endif %}>4th year</option>
-                    <option value="Postgraduate" {% if student.level_of_study == "Postgraduate" %}selected{% endif %}>Postgraduate</option>
-                </select>                
-            </div>
-            <div class="form-group">
-                <label for="id_faculty">Faculty</label>
-                {{ form.faculty }} 
-            </div>
-            <div class="form-group">
-                <label for="preferred_room_type">Preferred Room Type</label>
-                <select id="preferred_room_type" name="preferred_room_type" required>
-                    <option value="">Select...</option>
-                    <option value="1-sleeper">1-sleeper</option>
-                    <option value="2-sleeper">2-sleeper</option>
-                </select>
-            </div>
-            <button type="submit" class="submit-btn">Submit Application</button>
-        </form>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
     </div>
-    
 
     <!-- Footer -->
     <div class="footer">

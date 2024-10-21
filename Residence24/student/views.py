@@ -1,137 +1,95 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from student.forms import ResidenceApplicationForm, CreateProfileForm
+from student.forms import ResidenceApplicationForm
 from django.contrib import messages
+
+from datetime import datetime
+
 from student.models import Application, Student  # Your model for student applications
 from housing.models import Residence, Faculty
-from usermanagement.models import CustomUser
+
+# from usermanagement.models import CustomUser
 
 
 @login_required
 def student_dashboard(request):
+    # Attempt to get the logged-in user's associated Student instance
+    application = None
+
+    try:
+        student = Student.objects.get(student_ID=request.user.student_id)
+        application = Application.objects.get(student_id=student.id)
+
+        print("Application found for user: ", request.user.student_id)
+
+    except Application.DoesNotExist:
+        messages.info(request, "Please make an application for residence.")
+        print("No application found for user: ", request.user.student_id)
 
     if not request.user.is_student:
         return HttpResponseForbidden("You are not authorized to access this page.")
+
     # Student-specific dashboard logic here
-    return render(request, "student/student_dashboard.html", {"user": request.user})
-
-
-@login_required
-def residence_application(request):
-    # Attempt to get the logged-in user's associated Student instance
-    try:
-        student = Student.objects.get(student_ID=request.user.student_id)
-
-        # Check if the student's profile is complete (i.e., mandatory fields are filled)
-        if not (
-            student.first_name and student.last_name and student.home_address_street
-        ):
-            messages.warning(
-                request, "Please complete your profile before applying for residence."
-            )
-            return redirect(
-                "student:create_profile"
-            )  # Redirect them to fill in profile details
-    except Student.DoesNotExist:
-        messages.error(
-            request,
-            "Student record not found. Please ensure your account is set up correctly.",
-        )
-        return redirect(
-            "student:create_profile"
-        )  # If no student record, redirect to create profile
-
-    if request.method == "POST":
-        form = ResidenceApplicationForm(request.POST)
-
-        if form.is_valid():
-            student_application = form.save(commit=False)
-            student_application.student = student  # Link the student to the application
-            student_application.home_address_street = student.home_address_street
-            student_application.faculty = form.cleaned_data[
-                "faculty"
-            ]  # Optionally allow updating the faculty field
-            student_application.save()
-            messages.success(
-                request, "Your application has been submitted successfully."
-            )
-            return redirect("student:student_dashboard")
-        else:
-            messages.error(request, "Please correct the errors below.")
-
-    else:
-        # Pre-populate form fields with the student's profile information
-        form = ResidenceApplicationForm(
-            initial={
-                "home_address_street": student.home_address_street,
-                "home_address_suburb": student.home_address_suburb,
-                "home_address_city": student.home_address_city,
-                "home_address_postal_code": student.home_address_postal_code,
-                "faculty": student.faculty,
-                # Add any other fields you want to pre-populate
-            }
-        )
-
     return render(
         request,
-        "student/residence_application.html",
-        {
-            "form": form,
-            "user": request.user,
-            "student": student,  # Pass student object to the template
-        },
+        "student/student_dashboard.html",
+        {"user": request.user, "application": application},
     )
 
 
 @login_required
-def create_profile(request):
+def residence_application(request):
+    print(request.user.id)
     try:
         student = Student.objects.get(student_ID=request.user.student_id)
     except Student.DoesNotExist:
         student = None
 
     if request.method == "POST":
-        form = CreateProfileForm(request.POST, instance=student)
+        form = ResidenceApplicationForm(request.POST, instance=student)
+
+        print("Form Data Received: ", form.data)
 
         if form.is_valid():
+            # Retrieve student details
             student = form.save(commit=False)
-            student.student_ID = (
-                request.user.student_id
-            )  # Ensure the correct student ID is linked
+
+            student.student_ID = request.user.student_id
+            student.user_id = request.user.id
             student.save()
-            messages.success(request, "Profile updated successfully.")
+
+            messages.success(request, "Application submitted successfully.")
+
+            # Create Application or Update if it exists
+            try:
+                application = Application.objects.get(student_id=student.id)
+
+            except Application.DoesNotExist:
+                application = Application()
+                application.application_date = datetime.now()
+                application.student_id = student.id
+
+            print("Application: ", application.__dict__)
+
+            application.save()
+
             return redirect("student:student_dashboard")
+
         else:
             messages.error(request, "Please correct the errors below.")
+
     else:
-        form = CreateProfileForm(instance=student)
-        # Prepopulate the student_ID
-        form.fields["student_ID"].initial = request.user.student_id
-        """
-        ============================
-        Dummy data
-        ============================
-        """
-        _faculty = Faculty.objects.get(faculty_ID="c04a24b179554e94a33819ff9fab4618")
+        form = ResidenceApplicationForm(instance=student)
 
-        dummy_student = Student(
-            faculty=_faculty,
-            first_name="John",
-            last_name="Doe",
-            gender="Male",
-            home_address_city="Durban",
-            home_address_street="70 Steve Biko Road",
-            home_address_suburb="Musgrave",
-            home_address_postal_code="4001",
-            # is_local=True,
-            level_of_study="Undergraduate",
-            preferred_room_type="1-sleeper",
-        )
-        print(dummy_student.__dict__)
-        form.fields = dummy_student.__dict__
+        form.fields["first_name"].initial = "Sipho"
+        form.fields["last_name"].initial = "Mokoena"
+        form.fields["home_address_street"].initial = "70 Steve Biko Road"
+        form.fields["home_address_suburb"].initial = "Musgrave"
+        form.fields["home_address_city"].initial = "Durban"
+        form.fields["home_address_postal_code"].initial = "4001"
 
-    return render(request, "student/create_profile.html", {"form": form})
+    return render(request, "student/residence_application.html", {"form": form})
 
 
 """
@@ -243,12 +201,17 @@ def submit_residence_choice(request):
 
 
 def application_status(request):
-    applications = Application.objects.filter(
-        student__student_ID=request.user.student_id
-    )
-    # application = Application.objects.get(student_ID=request.user.student)
+    application = None
+
+    try:
+        student = Student.objects.get(student_ID=request.user.student_id)
+        application = Application.objects.get(student_id=student.id)
+
+    except (Student.DoesNotExist, Application.DoesNotExist):
+        return redirect("student:student_dashboard")
+
     return render(
-        request, "student/application_status.html", {"application": applications}
+        request, "student/application_status.html", {"application": application}
     )
 
 

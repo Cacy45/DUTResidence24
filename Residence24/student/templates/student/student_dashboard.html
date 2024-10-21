@@ -250,7 +250,10 @@
 
     <!-- Message Alert Section -->
     {% if messages %}
-    <div class="messages" style="position: absolute; top: 64px; left: 50vw;z-index: 10000;">
+    <div
+      class="messages"
+      style="position: absolute; top: 64px; left: 50vw; z-index: 10000"
+    >
       {% for message in messages %}
       <div
         class="alert alert-{{ message.tags }} alert-dismissible fade show"
@@ -258,7 +261,8 @@
       >
         {{ message }}
         <button
-          type="button"x
+          type="button"
+          x
           class="btn-close"
           data-bs-dismiss="alert"
           aria-label="Close"
@@ -281,53 +285,7 @@
 
     <!-- Dashboard Container -->
     <div class="dashboard-container">
-      <!-- Top Navbar -->
-      <div class="header">
-        <div>
-          <img
-            src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3205781/messages-icon-md.png"
-            alt="Messages Icon"
-            class="message-icon"
-          />
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcXrDYIdCrdQoXJZCETkOEUsuKoAo-DfJ14A&s"
-            alt="Notification Bell"
-            class="notification-bell"
-          />
-        </div>
-        <div class="search-container">
-          <input type="text" placeholder="Search..." />
-        </div>
-        <div class="profile">
-          <img
-            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-            alt="Profile Picture"
-          />
-          <div class="name">John Doe</div>
-          <div class="student-number">3rd year</div>
-        </div>
-      </div>
-
       <h2>Welcome back, {{ user.student_id }}!</h2>
-
-      <!-- Application Status Section -->
-      <div class="application-status">
-        <h3>Application Status: {{ application.status }}</h3>
-        <!-- Show application status -->
-        {% if application.status == 'Approved' %}
-        <p>
-          Your application has been approved! Please select your residence
-          below.
-        </p>
-        {% elif application.status == 'Declined' %}
-        <p>
-          Your application has been declined. Please contact administration for
-          more details.
-        </p>
-        {% else %}
-        <p>Your application is still pending.</p>
-        {% endif %}
-      </div>
 
       <!-- Cards Section -->
       <div class="cards">

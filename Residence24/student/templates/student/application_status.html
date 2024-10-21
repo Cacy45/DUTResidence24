@@ -238,7 +238,7 @@
         <h2>Application Status</h2>
         <div class="application-status">
             <h3>Status: {{ application.status }}</h3>
-            {% if application.status == 'Assigned' %}
+            {% if application.status == 'Approved' %}
                 <p>Your application has been successfully assigned to a residence.</p>
             {% elif application.status == 'Rejected' %}
                 <p>Your application has been rejected. Please contact administration for more details.</p>
@@ -246,7 +246,6 @@
                 <p>Your application is still pending. Please check back later.</p>
             {% endif %}
         </div>
-        <a href="{% url 'student:residence_details' %}">My Residence Details</a>
     </div>
 
     <!-- Footer -->
