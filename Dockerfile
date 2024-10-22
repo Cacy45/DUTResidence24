@@ -1,5 +1,5 @@
-# Stage 1: Build the Django application
-FROM python:3.12 AS build
+# Use the latest Debian image as the base
+FROM debian:latest
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -8,6 +8,10 @@ ENV PYTHONUNBUFFERED 1
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+       python3 \
+       python3-pip \
+       nginx \
+       tini \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -18,23 +22,10 @@ WORKDIR /app
 COPY requirements.txt ./
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Copy the application code
 COPY . .
-
-# Stage 2: Set up Nginx and copy the Django application
-FROM nginx:alpine
-
-# Install Tini and Python
-RUN apk add --no-cache tini python3 py3-pip
-
-# Copy the built Django application from the first stage
-COPY --from=build /app /app
-
-# Copy the installed Python packages from the build stage
-COPY --from=build /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --from=build /usr/local/bin /usr/local/bin
 
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -47,7 +38,7 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 80
 
 # Use Tini as the entrypoint
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # Start the services
 CMD ["/entrypoint.sh"]
