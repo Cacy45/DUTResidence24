@@ -1,0 +1,8 @@
+name: residence24
+services:
+  - dockerfile_path: Dockerfile
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: sipho-mokoena/DUTResidence24.git
+    name: residence24-service

@@ -1,0 +1,8 @@
+spec:
+  name: residence24
+  services:
+    - dockerfile_path: Dockerfile
+      git:
+        branch: main
+        repo_clone_url: https://github.com/sipho-mokoena/DUTResidence24.git
+      name: residence24-service
