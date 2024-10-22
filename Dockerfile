@@ -32,6 +32,10 @@ RUN apk add --no-cache tini python3 py3-pip
 # Copy the built Django application from the first stage
 COPY --from=build /app /app
 
+# Copy the installed Python packages from the build stage
+COPY --from=build /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
+COPY --from=build /usr/local/bin /usr/local/bin
+
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
