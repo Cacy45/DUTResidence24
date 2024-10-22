@@ -1,185 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Residence24 - Select Residence</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #e3f2fd; /* Lighter blue background */
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #e3f2fd; /* Lighter blue background */
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
 
-        .navbar {
-            background-color: #003c8f; /* Metallic blue */
-            color: #fff;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .navbar {
+        background-color: #003c8f; /* Metallic blue */
+        color: #fff;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
+      .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
 
-        .navbar .nav-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
+      .navbar .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
 
-        .navbar .nav-item {
-            position: relative;
-            margin-left: 1rem;
-        }
+      .navbar .nav-item {
+        position: relative;
+        margin-left: 1rem;
+      }
 
-        .navbar .nav-item a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            display: block;
-        }
+      .navbar .nav-item a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        display: block;
+      }
 
-        .content {
-            width: 90%;
-            margin: 3rem auto;
-            text-align: center;
-        }
+      .content {
+        width: 90%;
+        margin: 3rem auto;
+        text-align: center;
+      }
 
-        h1 {
-            color: #003c8f;
-            font-family: 'Cardo', serif;
-            margin-bottom: 1.5rem;
-        }
+      h1 {
+        color: #003c8f;
+        font-family: "Cardo", serif;
+        margin-bottom: 1.5rem;
+      }
 
-        .residences-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Centering the items */
-            margin-bottom: 2rem;
-        }
+      .residences-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center; /* Centering the items */
+        margin-bottom: 2rem;
+      }
 
-        .residence {
-            background-color: #fff;
-            width: 30%; /* Increased width to make images larger */
-            margin: 1rem; /* Adjusted margin for better spacing */
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
+      .residence {
+        background-color: #fff;
+        width: 30%; /* Increased width to make images larger */
+        margin: 1rem; /* Adjusted margin for better spacing */
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
 
-        .residence img {
-            width: 100%;
-            height: auto; /* Adjusted to maintain aspect ratio */
-            object-fit: cover; /* Ensures the image covers the container */
-        }
+      .residence img {
+        width: 100%;
+        height: auto; /* Adjusted to maintain aspect ratio */
+        object-fit: cover; /* Ensures the image covers the container */
+      }
 
-        .residence-name {
-            background-color: #003c8f;
-            color: #fff;
-            padding: 1rem;
-            font-weight: 600;
-        }
+      .residence-name {
+        background-color: #003c8f;
+        color: #fff;
+        padding: 1rem;
+        font-weight: 600;
+      }
 
-        .radio-selection {
-            padding: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      .radio-selection {
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .radio-selection input[type="radio"] {
-            margin-right: 0.5rem;
-        }
+      .radio-selection input[type="radio"] {
+        margin-right: 0.5rem;
+      }
 
-        /* Styling for buttons */
-        .btn {
-            display: inline-block;
-            background-color: #82b1ff;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 0.3rem;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            margin-top: 1rem;
-        }
+      /* Styling for buttons */
+      .btn {
+        display: inline-block;
+        background-color: #82b1ff;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        border-radius: 0.3rem;
+        font-weight: 600;
+        transition: background-color 0.3s;
+        margin-top: 1rem;
+      }
 
-        .btn:hover {
-            background-color: #1e88e5; /* Hover effect */
-        }
+      .btn:hover {
+        background-color: #1e88e5; /* Hover effect */
+      }
 
-        .footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #003c8f;
-            color: #fff;
-            margin-top: 2rem;
-        }
+      .footer {
+        text-align: center;
+        padding: 1rem;
+        background-color: #003c8f;
+        color: #fff;
+        margin-top: 2rem;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav class="navbar">
-            <div class="logo">Residence24</div>
-            <ul class="nav-links">
-                <li class="nav-item"><a href="#">Home</a></li>
-                <li class="nav-item"><a href="#about">About</a></li>
-                <li class="nav-item"><a href="#services">Services</a></li>
-                <li class="nav-item"><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+      <nav class="navbar">
+        <div class="logo">Residence24</div>
+        {% comment %} <ul class="nav-links">
+          <li class="nav-item"><a href="#">Home</a></li>
+          <li class="nav-item"><a href="#about">About</a></li>
+          <li class="nav-item"><a href="#services">Services</a></li>
+          <li class="nav-item"><a href="#contact">Contact</a></li>
+        </ul> {% endcomment %}
+      </nav>
     </header>
-
     <section class="content">
-        <h1>Please Select a Residence</h1>
+      <h1>Please Select a Residence</h1>
 
-        {% if application_status == "Declined" %}
-            <p>Your application has been declined. Please contact the administration for further information.</p>
-        {% elif application_status == "Approved" %}
-            <form method="POST" action="{% url 'submit_residence_choice' %}">
-                {% csrf_token %}
-                <div class="residences-container">
-                    {% for residence in residences %}
-                    <div class="residence">
-                        <img src="{{ residence.image_url }}" alt="{{ residence.name }}">
-                        <div class="residence-name">{{ residence.name }}</div>
-                        <div class="radio-selection">
-                            <input type="radio" name="residence" id="{{ residence.id }}" value="{{ residence.id }}" required>
-                            <label for="{{ residence.id }}">Select</label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
+      {% if application.status == "Declined" %}
+      <p>
+        Your application has been declined. Please contact the administration
+        for further information.
+      </p>
+      {% elif application.status == "Approved" %}
+      <form method="POST" action="{% url 'student:submit_residence_choice' %}">
+        {% csrf_token %}
+        <div class="residences-container">
+          {% load static %} {% for residence in residences %}
+          <div class="residence">
+            <img
+              src="{% static 'img/' %}{{ residence.image_path }}"
+              alt="{{ residence.name }}"
+            />
+            <div class="residence-name">{{ residence.residence_name }}</div>
+            <div class="radio-selection">
+              <input
+                type="radio"
+                name="residence"
+                id="{{ residence.id }}"
+                value="{{ residence.id }}"
+                required
+              />
+              <label for="{{ residence.id }}">Select</label>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
 
-                <div>
-                    <label for="room_type">Preferred Room Type:</label>
-                    <select id="room_type" name="room_type" required>
-                        <option value="">Select...</option>
-                        <option value="1-sleeper">1-sleeper</option>
-                        <option value="2-sleeper">2-sleeper</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn">Continue</button>
-            </form>
-        {% else %}
-            <p>Your application status is pending. Please check back later.</p>
-        {% endif %}
+        <div>
+          <label for="room_type">Preferred Room Type:</label>
+          <select id="room_type" name="room_type" required>
+            <option value="">Select...</option>
+            <option value="1-sleeper">1-sleeper</option>
+            <option value="2-sleeper">2-sleeper</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Continue</button>
+      </form>
+      {% else %}
+      <p>Your application status is pending. Please check back later.</p>
+      {% endif %}
     </section>
 
     <footer class="footer">
-        <p>Residence24 © All Rights Reserved</p>
+      <p>Residence24 © All Rights Reserved</p>
     </footer>
-</body>
+  </body>
 </html>

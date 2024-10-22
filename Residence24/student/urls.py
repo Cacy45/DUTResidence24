@@ -14,6 +14,7 @@ urlpatterns = [
         name="application_status",
     ),
     path("student/select-residence/", views.select_residence, name="select_residence"),
+    path("student/submit-residence-choice/", views.submit_residence_choice, name="submit_residence_choice"),
     path(
         "student/residence-details/", views.residence_details, name="residence_details"
     ),

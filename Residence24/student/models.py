@@ -101,6 +101,6 @@ class Application(models.Model):
             if self.student
             else "No Student"
         )
-        residence_info = self.residence.name if self.residence else "No Residence"
+        residence_info = self.residence.residence_name if self.residence else "No Residence"
 
         return f"Application {self.application_ID} ({student_info}) - Residence: {residence_info}"
