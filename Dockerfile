@@ -1,5 +1,5 @@
 # Stage 1: Build the Django application
-FROM python:3.12 AS build
+FROM python:3.9 AS build
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -26,8 +26,8 @@ COPY . .
 # Stage 2: Set up Nginx and copy the Django application
 FROM nginx:alpine
 
-# Install Tini
-RUN apk add --no-cache tini
+# Install Tini and Python
+RUN apk add --no-cache tini python3 py3-pip
 
 # Copy the built Django application from the first stage
 COPY --from=build /app /app
