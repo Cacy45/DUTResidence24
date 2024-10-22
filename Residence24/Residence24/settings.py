@@ -76,6 +76,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "Residence24.wsgi.application"
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://seashell-app-o57cv.ondigitalocean.app',
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
