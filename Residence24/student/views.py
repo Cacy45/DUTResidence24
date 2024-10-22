@@ -23,7 +23,7 @@ def student_dashboard(request):
 
         print("Application found for user: ", request.user.student_id)
 
-    except Application.DoesNotExist:
+    except (Student.DoesNotExist, Application.DoesNotExist):
         messages.info(request, "Please make an application for residence.")
         print("No application found for user: ", request.user.student_id)
 
@@ -82,12 +82,12 @@ def residence_application(request):
     else:
         form = ResidenceApplicationForm(instance=student)
 
-        form.fields["first_name"].initial = "Sipho"
-        form.fields["last_name"].initial = "Mokoena"
-        form.fields["home_address_street"].initial = "70 Steve Biko Road"
-        form.fields["home_address_suburb"].initial = "Musgrave"
-        form.fields["home_address_city"].initial = "Durban"
-        form.fields["home_address_postal_code"].initial = "4001"
+        # form.fields["first_name"].initial = "William"
+        # form.fields["last_name"].initial = "Mokoena"
+        # form.fields["home_address_street"].initial = "70 Steve Biko Road"
+        # form.fields["home_address_suburb"].initial = "Musgrave"
+        # form.fields["home_address_city"].initial = "Durban"
+        # form.fields["home_address_postal_code"].initial = "4001"
 
     return render(request, "student/residence_application.html", {"form": form})
 

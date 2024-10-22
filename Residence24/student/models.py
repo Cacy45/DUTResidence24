@@ -1,11 +1,11 @@
 # student/models.py
 from django.db import models
+from django.conf import settings  # To reference AUTH_USER_MODEL
+
+import uuid
+
 from housing.models import Residence, Faculty, HousingAdmin
 from usermanagement.models import CustomUser
-import uuid
-from geopy.distance import geodesic
-from geopy.geocoders import Nominatim
-from django.conf import settings  # To reference AUTH_USER_MODEL
 
 
 class Student(models.Model):
@@ -53,20 +53,14 @@ class Student(models.Model):
         return f"{self.first_name} {self.last_name} ({self.student_ID})"
 
     def save(self, *args, **kwargs):
-        geolocator = Nominatim(user_agent="residence24")
-        address = f"{self.home_address_street}, {self.home_address_suburb}, {self.home_address_city}, {self.home_address_postal_code}"
-
         try:
-            location = geolocator.geocode(address)
-            if location:
-                student_location = (location.latitude, location.longitude)
-                university_location = (-29.8496, 31.0103)
+            # Check if the postal code starts with "400"
+            if self.home_address_postal_code.startswith("400"):
+                self.is_local = True
 
-                distance = geodesic(student_location, university_location).km
-
-                self.is_local = distance <= 30
             else:
                 self.is_local = False
+
         except Exception as e:
             # Log the error or handle it accordingly
             print(f"Error determining location: {e}")

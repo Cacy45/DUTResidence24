@@ -1,98 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Login</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap"
+    />
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #e3f2fd; /* Light blue background */
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #e3f2fd; /* Light blue background */
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-        .login-container {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+      .login-container {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
 
-        .login-container h1 {
-            font-family: 'Cardo', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
+      .login-container h1 {
+        font-family: "Cardo", serif;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
 
-        .login-container input {
-            width: 100%;
-            padding: 0.75rem;
-            margin: 0.5rem 0;
-            border: 1px solid #ccc;
-            border-radius: 0.3rem;
-            font-size: 1rem;
-        }
+      .login-container input {
+        width: 100%;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border: 1px solid #ccc;
+        border-radius: 0.3rem;
+        font-size: 1rem;
+      }
 
-        .login-container button {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #b71c1c; /* Dark red for admin */
-            color: #fff;
-            border: none;
-            border-radius: 0.3rem;
-            font-size: 1rem;
-            cursor: pointer;
-        }
+      .login-container button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #b71c1c; /* Dark red for admin */
+        color: #fff;
+        border: none;
+        border-radius: 0.3rem;
+        font-size: 1rem;
+        cursor: pointer;
+      }
 
-        .login-container button:hover {
-            background-color: #d32f2f; /* Hover effect */
-        }
+      .login-container button:hover {
+        background-color: #d32f2f; /* Hover effect */
+      }
 
-        .login-container .forgot-password {
-            margin-top: 1rem;
-            display: block;
-            color: #b71c1c;
-            text-decoration: none;
-        }
+      .login-container .forgot-password {
+        margin-top: 1rem;
+        display: block;
+        color: #b71c1c;
+        text-decoration: none;
+      }
 
-        .login-container .forgot-password:hover {
-            text-decoration: underline;
-        }
+      .login-container .forgot-password:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="login-container">
-        <h1>Housing Admin Login</h1>
-    
-    
-        <!-- Begin form -->
-        <form method="POST">
-            {% csrf_token %}
-    
-            {{ form.as_p }}  <!-- Renders the form fields -->
-    
-            <!-- Submit button -->
-            <button type="submit" class="btn">Login</button>
-    
-            <!-- Links for account creation and password reset -->
-            <p>Don't have an account? 
-                <a href="{% url 'usermanagement:register_admin' %}" class="create-account">Create account</a>.
-            </p>
-            <a href="#" class="forgot-password">Forgot password?</a>
-        </form>
-    </div>
-    
+      <h1>Housing Admin Login</h1>
 
-</body>
+      <form method="POST">
+        {% csrf_token %} {{ form.as_p }}
+
+        <button type="submit" class="btn">Login</button>
+        <p>
+          Don't have an account?
+          <a
+            href="{% url 'usermanagement:register_admin' %}"
+            class="create-account"
+            >Create account</a
+          >.
+        </p>
+        <a href="#" class="forgot-password">Forgot password?</a>
+      </form>
+    </div>
+  </body>
 </html>
