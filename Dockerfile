@@ -26,8 +26,8 @@ COPY . .
 # Stage 2: Set up Nginx and copy the Django application
 FROM nginx:alpine
 
-# Install supervisord
-RUN apk add --no-cache supervisor
+# Install Tini
+RUN apk add --no-cache tini
 
 # Copy the built Django application from the first stage
 COPY --from=build /app /app
@@ -35,11 +35,15 @@ COPY --from=build /app /app
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy supervisord configuration file
-COPY supervisord.conf /etc/supervisord.conf
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Expose the port Nginx will run on
 EXPOSE 80
 
-# Start supervisord
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+# Use Tini as the entrypoint
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# Start the services
+CMD ["/entrypoint.sh"]
