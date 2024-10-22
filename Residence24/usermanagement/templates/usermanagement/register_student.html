@@ -1,138 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Registration</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Link to your CSS file -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #e3f2fd; /* Lighter blue background */
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #e3f2fd; /* Lighter blue background */
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-        .register-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            width: 300px; /* Fixed width for better layout */
-        }
+      .register-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        width: 300px; /* Fixed width for better layout */
+      }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #003c8f; /* Metallic blue */
-        }
+      h1 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #003c8f; /* Metallic blue */
+      }
 
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
 
-        button {
-            background-color: #003c8f; /* Metallic blue */
-            color: white;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            width: 100%;
-        }
+      button {
+        background-color: #003c8f; /* Metallic blue */
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+      }
 
-        button:hover {
-            background-color: #0052cc; /* Darker blue on hover */
-        }
+      button:hover {
+        background-color: #0052cc; /* Darker blue on hover */
+      }
 
-        .login-link {
-            display: block;
-            text-align: center;
-            margin-top: 1rem;
-            color: #003c8f; /* Metallic blue */
-            text-decoration: none;
-        }
+      .login-link {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        color: #003c8f; /* Metallic blue */
+        text-decoration: none;
+      }
 
-        .login-link:hover {
-            text-decoration: underline;
-        }
+      .login-link:hover {
+        text-decoration: underline;
+      }
 
-        .alert {
-            margin: 0.5rem 0;
-            padding: 0.5rem;
-            border-radius: 4px;
-            display: none; /* Initially hidden, to be displayed via JavaScript */
-        }
+      .alert {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        border-radius: 4px;
+        display: none; /* Initially hidden, to be displayed via JavaScript */
+      }
 
-        .alert.error {
-            background-color: #f8d7da; /* Light red background for errors */
-            color: #721c24; /* Dark red text */
-            border: 1px solid #f5c6cb; /* Red border */
-        }
+      .alert.error {
+        background-color: #f8d7da; /* Light red background for errors */
+        color: #721c24; /* Dark red text */
+        border: 1px solid #f5c6cb; /* Red border */
+      }
 
-        .alert.success {
-            background-color: #d4edda; /* Light green background for success */
-            color: #155724; /* Dark green text */
-            border: 1px solid #c3e6cb; /* Green border */
-        }
-
+      .alert.success {
+        background-color: #d4edda; /* Light green background for success */
+        color: #155724; /* Dark green text */
+        border: 1px solid #c3e6cb; /* Green border */
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="register-container">
-        <h1>Student Registration</h1>
-        
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        
-        <form method="POST" novalidate>
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div>
-                {{ form.email.label }} 
-                {{ form.email }}  
-                {{ form.email.errors }} 
-            </div>
-            <div>
-                {{ form.password1.label }}
-                {{ form.password1 }} 
-                {{ form.password1.errors }}
-            </div>
-            <div>
-                {{ form.password2.label }}
-                {{ form.password2 }} 
-                {{ form.password2.errors }}
-            </div>
-            <button type="submit">Register</button>
-        </form>
-        <a href="{% url 'usermanagement:student_login' %}" class="login-link">Already have an account? Login</a>
+      <h1>Student Registration</h1>
+
+      {% if messages %} {% for message in messages %}
+      <div class="alert {{ message.tags }}">{{ message }}</div>
+      {% endfor %} {% endif %}
+
+      <form method="POST" novalidate>
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Register</button>
+      </form>
+      <a href="{% url 'usermanagement:student_login' %}" class="login-link"
+        >Already have an account? Login</a
+      >
     </div>
 
     <script>
-        // Optional: Show alert messages if they exist
-        document.querySelectorAll('.alert').forEach(alert => {
-            if (alert.innerText.trim() !== '') {
-                alert.style.display = 'block';
-            }
-        });
+      // Optional: Show alert messages if they exist
+      document.querySelectorAll(".alert").forEach((alert) => {
+        if (alert.innerText.trim() !== "") {
+          alert.style.display = "block";
+        }
+      });
     </script>
-
-</body>
+  </body>
 </html>

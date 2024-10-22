@@ -216,7 +216,11 @@
             <li><a href="#">View Applications</a></li>
             <li><a href="#">Manage Students</a></li>
         </ul>
-        <button class="logout-btn">Logout</button>
+        
+      <form method="POST" action="{% url 'housing:logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn">Logout</button>
+      </form>
     </div>
 
     <!-- Dashboard Container -->

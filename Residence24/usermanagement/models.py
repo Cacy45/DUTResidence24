@@ -1,51 +1,64 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager  # Added BaseUserManager import
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.core.exceptions import ValidationError
 
-class CustomUserManager(BaseUserManager):  # New custom user manager class
+
+class CustomUserManager(BaseUserManager):
+    """Custom user manager for CustomUser model."""
+
     def create_user(self, email, password=None, **extra_fields):
+        """Create and return a regular user with an email and password."""
         if not email:
             raise ValueError("The Email field must be set")
+
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
+        user.set_password(password)  # Set the password
+        user.save(using=self._db)  # Save user to the database
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):  # New method for creating superuser
+    def create_superuser(self, email, password=None, **extra_fields):
         """Create and return a superuser with an email and password."""
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
 
-        # Call the create_user method to handle the user creation
+        # Ensure a superuser always has these attributes
         return self.create_user(email, password, **extra_fields)
 
+
 class CustomUser(AbstractUser):
-    username = None  # We don't need the username field
-    email = models.EmailField(unique=True)  # Email will be the unique identifier for login
+    """Custom user model that uses email as the username field."""
+
+    username = None  # Remove username field
+    email = models.EmailField(
+        unique=True
+    )  # Email will be the unique identifier for login
     is_student = models.BooleanField(default=False)
     is_housing_admin = models.BooleanField(default=False)
-    student_id = models.CharField(max_length=8, blank=True, null=True, unique=True)  # Ensure student ID is unique
+    student_id = models.CharField(
+        max_length=8, blank=True, null=True, unique=True
+    )  # Unique student ID
 
-    USERNAME_FIELD = 'email'  # Use email for authentication
-    REQUIRED_FIELDS = []  # No other required fields apart from email
+    USERNAME_FIELD = "email"  # Use email for authentication
+    REQUIRED_FIELDS = []  # No additional required fields for user creation
 
-    objects = CustomUserManager()  # Set the custom user manager  # New line
+    objects = CustomUserManager()  # Set the custom user manager
 
     def clean(self):
         """Custom validation for student and housing admin emails."""
-        if self.is_student and self.email.endswith('@dut4life.ac.za'):
-            # Extract student ID from the email (before '@')
-            student_id = self.email.split('@')[0]
+        super().clean()  # Ensure the parent clean method is called
+
+        if self.is_student:
+            if not self.email.endswith("@dut4life.ac.za"):
+                raise ValidationError("Student email must end with '@dut4life.ac.za'")
+            # Extract student ID from the email
+            student_id = self.email.split("@")[0]
             if not student_id.isdigit() or len(student_id) != 8:
                 raise ValidationError("Invalid student ID in email")
             self.student_id = student_id
-        
-        # Ensure housing admins use the correct email domain, if required
-        if self.is_housing_admin and not self.email.endswith('@dut4life.ac.za'):
-            raise ValidationError("Housing admin must use a valid DUT email")
 
-        super().clean()  # Call parent class's clean() to maintain other validations
+        if self.is_housing_admin and not self.email.endswith("@dut4life.ac.za"):
+            raise ValidationError("Housing admin must use a valid DUT email")
 
     def save(self, *args, **kwargs):
         """Override save to ensure validation happens before saving."""
