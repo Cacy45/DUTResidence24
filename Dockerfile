@@ -10,6 +10,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        python3 \
        python3-pip \
+       python3-venv \
        nginx \
        tini \
     && apt-get clean \
@@ -21,8 +22,9 @@ WORKDIR /app
 # Copy the requirements file
 COPY requirements.txt ./
 
-# Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Create and activate a virtual environment, then install Python dependencies
+RUN python3 -m venv /app/venv \
+    && /app/venv/bin/pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
 COPY . .
