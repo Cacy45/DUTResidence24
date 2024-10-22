@@ -97,19 +97,22 @@
   <body>
     <div class="register-container">
       <h1>Student Registration</h1>
+      
 
-      {% if messages %} {% for message in messages %}
-      <div class="alert {{ message.tags }}">{{ message }}</div>
-      {% endfor %} {% endif %}
-
-      <form method="POST" novalidate>
-        {% csrf_token %} {{ form.as_p }}
+      {% if messages %}
+      <div class="alert">
+          {% for message in messages %}
+              <p>{{ message }}</p> <!-- Display any success or error messages -->
+          {% endfor %}
+      </div>
+  {% endif %}
+  
+  <form method="POST">
+        {% csrf_token %} 
+        {{ form.as_p }}
         <button type="submit">Register</button>
       </form>
-      <a href="{% url 'usermanagement:student_login' %}" class="login-link"
-        >Already have an account? Login</a
-      >
-    </div>
+      <a href="{% url 'usermanagement:student_login' %}" class="login-link">Already have an account? Login</a>
 
     <script>
       // Optional: Show alert messages if they exist
