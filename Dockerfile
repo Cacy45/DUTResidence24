@@ -1,5 +1,5 @@
 # Stage 1: Build the Django application
-FROM python:3.9 AS build
+FROM python:3.12 AS build
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
