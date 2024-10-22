@@ -1,5 +1,5 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.4
+# Stage 1: Build the Django application
+FROM python:3.4 AS build
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -12,7 +12,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy the requirements file
 COPY requirements.txt ./
@@ -23,8 +23,23 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 8000
+# Stage 2: Set up Nginx and copy the Django application
+FROM nginx:alpine
 
-# Run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Install supervisord
+RUN apk add --no-cache supervisor
+
+# Copy the built Django application from the first stage
+COPY --from=build /app /app
+
+# Copy Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy supervisord configuration file
+COPY supervisord.conf /etc/supervisord.conf
+
+# Expose the port Nginx will run on
+EXPOSE 80
+
+# Start supervisord
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
