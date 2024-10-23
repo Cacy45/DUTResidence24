@@ -223,7 +223,9 @@ def residence_details(request):
 
         # Get the application status for the current student
         residence_application = Application.objects.get(student=student)
-        residence = Residence.objects.filter(id=residence_application.residence_id).first()
+        residence = Residence.objects.filter(
+            id=residence_application.residence_id
+        ).first()
         residence.image_path = (
             residence.residence_name.lower().replace(" ", "_") + ".jpg"
         )
@@ -234,4 +236,8 @@ def residence_details(request):
     except Application.DoesNotExist:
         residence = None
 
-    return render(request, "student/residence_details.html", {"residence": residence, "student": student})
+    return render(
+        request,
+        "student/residence_details.html",
+        {"residence": residence, "student": student},
+    )

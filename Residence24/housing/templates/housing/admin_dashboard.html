@@ -160,6 +160,8 @@
 
         .card h3 {
             margin-top: 0.5rem;
+            text-decoration: none;
+            color: white;
         }
 
         /* Logout Button */
@@ -209,12 +211,11 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <button class="toggle-btn" onclick="toggleSidebar()">&#9776;</button> <!-- Toggle Button -->
-        <h3>Admin Dashboard</h3>
+        <h2>Admin Dashboard</h2>
         <ul>
-            <li><a href="#">Manage Residences</a></li>
-            <li><a href="#">Manage Rooms</a></li>
-            <li><a href="#">View Applications</a></li>
-            <li><a href="#">Manage Students</a></li>
+            <li><a href="{% url 'housing:admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'housing:manage_residences' %}">Manage Residences</a></li>
+            <li><a href="{% url 'housing:manage_applications' %}">Manage Applications</a></li>
         </ul>
         
       <form method="POST" action="{% url 'housing:logout' %}">
@@ -228,11 +229,6 @@
         <!-- Top Navbar -->
         <div class="header">
             <h1>Welcome to Residence24</h1>
-            <div class="profile">
-                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile Picture">
-                <div class="name">Admin Name</div>
-                <div class="admin-number">Admin</div>
-            </div>
         </div>
 
         <h2>Hello, Admin!</h2>
@@ -244,20 +240,10 @@
                 <img src="https://creativeaxis.co.za/wp-content/uploads/2021/08/2-1-2.jpg" alt="Manage Residences">
                 <h3>Manage Residences</h3>
             </div>
-            <div class="card">
-                <a href="{% url 'housing:add_room' %}">
-                <img src="https://images.ctfassets.net/tfvkuuj8nae0/3fu5Y3xAlXd1zp2w3koC0j/9a8bf7aabea7ac78c84316190fc9aaa7/pexels-vlada-karpovich-5076151.jpg" alt="Manage Rooms">
-                <h3>Manage Rooms</h3>
-            </div>
-            <div class="card">
+        <div class="card">
                 <a href="{% url 'housing:manage_applications' %}">
-                <img src="https://cdn4.vectorstock.com/i/1000x1000/95/05/sale-approved-granted-stamp-vector-21079505.jpg" alt="View Applications">
+                <img src="https://www.shutterstock.com/image-photo/wooden-blocks-words-reject-approve-260nw-2196974155.jpg" alt="View Applications">
                 <h3>View Applications</h3>
-            </div>
-            <div class="card">
-                <a href="{% url 'housing:assign_room' %}">
-                <img src="https://i.pinimg.com/736x/9d/1a/a1/9d1aa1e54744e12e1742d29920981c32.jpg" alt="Manage Students">
-                <h3>Allocate Students</h3>
             </div>
         </div>
 

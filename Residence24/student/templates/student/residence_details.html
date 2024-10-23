@@ -200,10 +200,10 @@
     <main class="table-container">
       <h2>ALLOCATED RESIDENCE:</h2>
       <!-- Larger Residence Image -->
+      {% load static %}
       <img
-        src="https://profprod.nsfas.org.za/storage/assessment/2d3f97c0-f79b-4dcc-bedb-a6e088986cce-1710406862.jpg"
-        class="residence-image"
-      />
+        src="{% static 'img/' %}{{ residence.image_path }}"
+        class="residence-image"/>
       <div style="display: flex; align-items: center; justify-content: center;">
         <div
           class="residence-details"
