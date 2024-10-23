@@ -1,255 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Residence Details - Residence24</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Residence24 - Allocated Residence</title>
     <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #e3f2fd; /* Lighter blue background */
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #e3f2fd;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Navbar styling */
+      .navbar {
+        background-color: #003c8f;
+        color: #fff;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .navbar .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navbar .nav-item {
+        margin-left: 1rem;
+      }
+
+      .navbar .nav-item a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        display: block;
+        transition: background-color 0.3s ease;
+      }
+
+      /* Hover effect for nav items */
+      .navbar .nav-item a:hover {
+        background-color: #005bb5;
+        border-radius: 5px;
+      }
+
+      /* Container for residence details */
+      .table-container {
+        width: 90%;
+        margin: 3rem auto;
+        padding: 1rem;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .table-container h2 {
+        color: #003c8f;
+        font-family: "Cardo", serif;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .residence-image {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 15px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .residence-details {
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      /* Styling for the view section */
+      .view-section {
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      /* Container for the image box and navigation */
+      .image-box {
+        position: relative;
+        display: inline-block;
+        width: 300px; /* Width for the image box */
+        height: 200px; /* Height for uniformity */
+        overflow: hidden; /* Hide overflow */
+        margin: 0 auto;
+      }
+
+      /* Image styling for uniform size */
+      .image-box img {
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        object-fit: cover; /* Crop images */
+        border-radius: 10px; /* Curved corners for images */
+      }
+
+      /* Navigation buttons */
+      .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(
+          0,
+          60,
+          143,
+          0.8
+        ); /* Semi-transparent background */
+        color: white;
+        border: none;
+        padding: 10px; /* Padding for buttons */
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 20px; /* Font size for buttons */
+        z-index: 1; /* Ensure buttons are above the image */
+        transition: background-color 0.3s ease; /* Smooth transition */
+      }
+
+      /* Positioning left and right buttons */
+      .nav-button.left {
+        left: -50px; /* Off to the left */
+      }
+
+      .nav-button.right {
+        right: -50px; /* Off to the right */
+      }
+
+      /* Hover effect for navigation buttons */
+      .nav-button:hover {
+        background-color: #005bb5; /* Change background color on hover */
+      }
+
+      /* Dot navigation styling */
+      .dot-navigation {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .dot {
+        height: 10px;
+        width: 10px;
+        margin: 0 5px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .active-dot {
+        background-color: #003c8f; /* Color for active dot */
+      }
+
+      /* Footer section */
+      .footer {
+        text-align: center;
+        padding: 1rem;
+        background-color: #003c8f;
+        color: #fff;
+        margin-top: 2rem;
+      }
+
+      /* Responsive styling */
+      @media (max-width: 768px) {
+        .table-container {
+          width: 95%;
         }
 
-        /* Sidebar Styles */
-        .sidebar {
-            width: 20%;
-            background-color: #003c8f; /* Metallic blue */
-            padding: 1rem;
-            color: white;
-            position: relative;
-            z-index: 1000;
-            height: 202.5vh; /* Full height sidebar */
+        .navbar .nav-links {
+          flex-direction: column;
+          align-items: center;
         }
 
-        .sidebar h3 {
-            font-weight: 600;
-            margin-bottom: 1rem;
+        .navbar .nav-item {
+          margin-left: 0;
+          margin-top: 1rem;
         }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 1rem 0;
-        }
-
-        .sidebar ul li a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem;
-            transition: background-color 0.3s;
-        }
-
-        .sidebar ul li a:hover {
-            background-color: #0052cc;
-        }
-
-        /* Dashboard Container */
-        .dashboard-container {
-            width: 80%;
-            margin: 2rem auto;
-            background-color: #fff;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            position: relative;
-        }
-
-        /* Header and Icons */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .search-container {
-            display: flex;
-            align-items: center;
-            border: 1px solid #b3cde0;
-            border-radius: 0.5rem;
-            padding: 0.5rem;
-            width: 40%;
-        }
-
-        .search-container input[type="text"] {
-            border: none;
-            outline: none;
-            padding: 0.5rem;
-            flex-grow: 1;
-        }
-
-        .message-icon,
-        .notification-bell {
-            margin-right: 1rem;
-            width: 24px;
-            height: 24px;
-            transition: transform 0.3s;
-        }
-
-        .message-icon:hover,
-        .notification-bell:hover {
-            transform: scale(1.1);
-        }
-
-        .profile {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .profile img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid #b3cde0;
-        }
-
-        .profile .name {
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .profile .student-number {
-            font-size: 0.75rem;
-            color: #757575;
-        }
-
-        /* Cards Section */
-        .cards {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background-color: #1e88e5;
-            color: #fff;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-            width: 30%;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            background-color: #2196f3;
-        }
-
-        .card img {
-            width: 100%;
-            border-radius: 0.5rem;
-        }
-
-        .card h3 {
-            margin-top: 0.5rem;
-        }
-
-        /* Latest News Section */
-        .latest-news {
-            margin-top: 2rem;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            overflow: hidden; /* Prevent overflow of slides */
-            position: relative;
-        }
-
-        .news-slider {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .news-slide {
-            min-width: 100%; /* Each slide takes the full width */
-            box-sizing: border-box; /* Include padding in width */
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center content */
-        }
-
-        .news-slide img {
-            width: 100%; /* Responsive image */
-            border-radius: 0.5rem;
-            max-height: 200px; /* Limit the height of images */
-            object-fit: cover; /* Cover the area without stretching */
-        }
-
-        .news-slide h4 {
-            margin: 0.5rem 0 0.5rem;
-        }
-
-        .news-slide p {
-            text-align: center; /* Center text */
-        }
-
-        /* Logout Button */
-        .logout-btn {
-            background-color: #e53935;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 0.3rem;
-            cursor: pointer;
-            font-weight: 600;
-            position: absolute; /* Positioned within sidebar */
-            bottom: 20px; /* Margin from bottom */
-            left: 10px; /* Margin from left */
-        }
-
-        .logout-btn:hover {
-            background-color: #d32f2f;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #003c8f;
-            color: #fff;
-            margin-top: 2rem;
-        } 
+      }
     </style>
-</head>
-<body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3>Student Dashboard</h3>
-        <ul>
-            <li><a href="#">Account Profile</a></li>
-            <li><a href="#">Messages</a></li>
-            <li><a href="#">Documents</a></li>
-        </ul>
-        <button class="logout-btn">Logout</button>
-    </div>
+  </head>
 
-    <!-- Dashboard Container -->
-    <div class="dashboard-container">
-        <h2>My Residence Details</h2>
-        <div class="residence-details">
-            {% if residence %}
-                <p>Residence Name: {{ residence.name }}</p>
-                <p>Room Number: {{ residence.room_number }}</p>
-                <!--<p>Check-in Date: {{ residence.check_in_date }}</p>-->
-            {% else %}
-                <p>No residence allocated yet. Please check back after your application is processed.</p>
-            {% endif %}
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">Residence24</div>
+      </nav>
+    </header>
+
+    <main class="table-container">
+      <h2>ALLOCATED RESIDENCE:</h2>
+      <!-- Larger Residence Image -->
+      <img
+        src="https://profprod.nsfas.org.za/storage/assessment/2d3f97c0-f79b-4dcc-bedb-a6e088986cce-1710406862.jpg"
+        class="residence-image"
+      />
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <div
+          class="residence-details"
+          style="display: flex; flex-direction: column; text-align: start"
+        >
+          <p><strong>Faculty: </strong> {{ residence.student_faculty }}</p>
+          <p><strong>Year of Study: </strong> {{ student.level_of_study }}</p>
+          <p>
+            <strong>Residence Name: </strong> {{ residence.residence_name }}
+          </p>
+          <p><strong>Address: </strong> {{ residence.residence_address }}</p>
+          <p>
+            <strong>Distance from Campus: </strong>{{
+            residence.distance_to_campus }} KM
+          </p>
+          <p><strong>Room type: </strong> {{ student.preferred_room_type }}</p>
+          <p><strong>Assigned Room: </strong> {{ residence.fake_room }}</p>
+          <p><strong>Capacity: </strong> {{ residence.total_num_of_rooms }}</p>
         </div>
-    </div>
+      </div>
+    </main>
 
-    <!-- Footer -->
-    <div class="footer">
-        Residence24 © 2024 - All Rights Reserved
-    </div>
-</body>
+    <footer class="footer">
+      <p>&copy; 2024 Residence24 | All Rights Reserved</p>
+    </footer>
+  </body>
 </html>

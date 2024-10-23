@@ -190,7 +190,6 @@ def submit_residence_choice(request):
         student = Student.objects.get(user=request.user)
         student_application = Application.objects.get(student=student)
 
-        print(student_application)
         student_application.residence_id = residence_id
         student_application.save()
 
@@ -219,12 +218,20 @@ def application_status(request):
 
 def residence_details(request):
     try:
-        # Get the residence associated with the logged-in student's application
-        residence_application = Application.objects.get(student=request.user.student)
-        residence = (
-            residence_application.residence
-        )  # Access the related residence through the application
+        # Fetch the Student instance associated with the current user
+        student = Student.objects.get(user=request.user)
+
+        # Get the application status for the current student
+        residence_application = Application.objects.get(student=student)
+        residence = Residence.objects.filter(id=residence_application.residence_id).first()
+        residence.image_path = (
+            residence.residence_name.lower().replace(" ", "_") + ".jpg"
+        )
+        student_faculty = Faculty.objects.get(id=student.faculty_id)
+        residence.student_faculty = student_faculty.faculty
+        residence.fake_room = residence.id
+
     except Application.DoesNotExist:
         residence = None
 
-    return render(request, "student/residence_details.html", {"residence": residence})
+    return render(request, "student/residence_details.html", {"residence": residence, "student": student})

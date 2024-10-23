@@ -81,15 +81,6 @@
         {% csrf_token %} {{ form.as_p }}
 
         <button type="submit" class="btn">Login</button>
-        <p>
-          Don't have an account?
-          <a
-            href="{% url 'usermanagement:register_admin' %}"
-            class="create-account"
-            >Create account</a
-          >.
-        </p>
-        <a href="#" class="forgot-password">Forgot password?</a>
       </form>
     </div>
   </body>
